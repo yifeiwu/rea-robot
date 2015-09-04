@@ -50,8 +50,9 @@ RSpec.describe Bot do
   describe "#Move" do
     context 'When not yet placed' do
       it "Ignores command" do
-        correct_response = nil
-        test_response = bot.move
+      	bot.move
+        correct_response = [nil,nil,nil]
+        test_response = bot.position
         expect(test_response).to eq(correct_response)
       end
     end
@@ -77,7 +78,7 @@ RSpec.describe Bot do
     context 'When not placed' do
       it "Ignores command" do
         bot.left
-        correct_response = nil
+        correct_response = [nil,nil,nil]
         test_response = bot.position
         expect(test_response).to eq(correct_response)
       end
@@ -97,7 +98,7 @@ RSpec.describe Bot do
     context 'When not placed' do
       it "Ignores command" do
       	bot.right
-        correct_response = nil
+        correct_response = [nil,nil,nil]
         test_response = bot.position
         expect(test_response).to eq(correct_response)
       end
@@ -106,7 +107,7 @@ RSpec.describe Bot do
       it "Turns the robot right" do
         bot.place(1,1,'north')
         bot.right
-        correct_response=[1,1,"west"]
+        correct_response=[1,1,"east"]
         test_response = bot.position
         expect(test_response).to eq(correct_response)
       end

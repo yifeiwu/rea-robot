@@ -16,11 +16,11 @@ while c=gets.chomp.downcase
   when 'right'
     @bot.right
   when 'report'
-  	puts @bot.report
+    unless @bot.report.nil?
+      x, y, f = @bot.report
+  	  puts "#{x},#{y},#{f}"
+  	end
   when 'end'
   	exit
-  else 
-  	puts "Invalid command"
   end
-    puts prompt
 end

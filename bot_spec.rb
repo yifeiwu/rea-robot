@@ -26,9 +26,6 @@ RSpec.describe Bot do
         test_response = bot.position
         expect(test_response).to eq(correct_response)
       end
-      it "ignores bad arg commands" do
-        expect{ bot.place('x','beer') }.to raise_error(ArgumentError)
-      end
     end
     context 'When bot already placed' do
       it "places the robot at new position" do

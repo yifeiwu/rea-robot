@@ -10,15 +10,11 @@ class Bot
   end
 
   def place(x,y,f)
-  	begin
-      if valid_position?(x,y,f)
-        @x = x
-        @y = y
-        @f_index = @faces.index(f)
-        set_position
-      end
-    rescue ArgumentError => e
-      puts "Wrong # of args"
+    if valid_position?(x,y,f)
+      @x = x
+      @y = y
+      @f_index = @faces.index(f)
+      set_position
     end
   end
 

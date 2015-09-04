@@ -10,12 +10,16 @@ class Bot
   end
 
   def place(x,y,f)
-    if valid_position?(x,y,f)
-      @x = x
-      @y = y
-      @f_index = @faces.index(f)
-      set_position
-	end
+  	begin
+      if valid_position?(x,y,f)
+        @x = x
+        @y = y
+        @f_index = @faces.index(f)
+        set_position
+      end
+    rescue ArgumentError => e
+      puts "Wrong # of args"
+    end
   end
 
   def left
@@ -32,22 +36,22 @@ class Bot
   	end
   end
 	
-	def move
-		#movement in x is move_units*x_component of facing direction
-		if valid_position?(*@position)
-		dx = @x_hat[@f_index]
-		dy = @y_hat[@f_index]
+  def move
+	#movement in x is move_units*x_component of facing direction
+    if valid_position?(*@position) #if placed
+      dx = @x_hat[@f_index]
+	  dy = @y_hat[@f_index]
 
-		test_x = @x+dx
-		test_y = @y+dy
+	  test_x = @x+dx
+	  test_y = @y+dy
 		
-		if valid_position?(test_x,test_y,@faces[@f_index])
-			@x = test_x
-			@y = test_y
-            set_position
-        end
+	  if valid_position?(test_x,test_y,@faces[@f_index]) #if move valid
+	    @x = test_x
+		@y = test_y
+        set_position
+      end
     end
-	end
+  end
 
   def report 
     if valid_position?(*@position) 

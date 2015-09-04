@@ -3,7 +3,7 @@ require './bot'
 RSpec.describe Bot do
   let(:bot) { Bot.new }
   describe "#New" do
-  	it "Create robot" do
+  	it "Creates robot" do
       correct_response = [nil,nil,nil]
       test_response = bot.position
       expect(test_response).to eq(correct_response)
@@ -12,7 +12,7 @@ RSpec.describe Bot do
 
   describe "#Place" do
   	context 'When valid position' do
-  	  it "Places the robot at designated position" do
+  	  it "places the robot at designated position" do
       	bot.place(1,1,'north')
       	correct_response = [1,1,'north']
         test_response = bot.position
@@ -20,9 +20,24 @@ RSpec.describe Bot do
       end
     end
     context 'When invalid position' do
-      it "Places the robot at designated position" do
+      it "ignores off-table command" do
         bot.place(1,7,'north')
         correct_response = [nil,nil,nil]
+        test_response = bot.position
+        expect(test_response).to eq(correct_response)
+      end
+      it "ignores bad arg commands" do
+        bot.place('x','beer')
+        correct_response = [nil,nil,nil]
+        test_response = bot.position
+        expect(test_response).to eq(correct_response)
+      end
+    end
+    context 'When bot already placed' do
+      it "places the robot at new position" do
+        bot.place(1,7,'north')
+        bot.place(1,1,'north')
+        correct_response = [1,1,'north']
         test_response = bot.position
         expect(test_response).to eq(correct_response)
       end
